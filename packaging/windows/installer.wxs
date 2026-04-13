@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="MessengerApp" Version="1.0.0" Manufacturer="Student" Language="1033" UpgradeCode="12345678-1234-1234-1234-123456789012">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    <MediaTemplate EmbedCab="yes" />
+    
+    <Feature Id="ProductFeature" Title="MessengerApp" Level="1">
+      <ComponentRef Id="MainComponent" />
+    </Feature>
+    
+    <InstallExecuteSequence>
+      <Custom Action="LaunchApp" After="InstallFinalize">NOT Installed</Custom>
+    </InstallExecuteSequence>
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="MessengerApp" />
+      </Directory>
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+    <Component Id="MainComponent" Directory="INSTALLFOLDER" Guid="*">
+      <File Source="..\..\release\messenger_qt.exe" Id="MainEXE" KeyPath="yes" />
+      <File Source="..\..\release\run.bat" />
+    </Component>
+  </Fragment>
+</Wix>

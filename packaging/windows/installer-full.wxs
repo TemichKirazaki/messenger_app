@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="MessengerApp" Version="1.0.0" Manufacturer="Student" Language="1033" UpgradeCode="12345678-1234-1234-1234-123456789012">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    <MediaTemplate EmbedCab="yes" />
+    
+    <Feature Id="ProductFeature" Title="MessengerApp" Level="1">
+      <ComponentGroupRef Id="MainComponents" />
+      <ComponentGroupRef Id="PlatformComponents" />
+    </Feature>
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="MessengerApp">
+          <Directory Id="PLATFORMSDIR" Name="platforms" />
+        </Directory>
+      </Directory>
+      <Directory Id="DesktopFolder" Name="Desktop" />
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="MainComponents" Directory="INSTALLFOLDER">
+      <Component Id="MainEXE" Guid="*"><File Source="..\..\release\messenger_qt.exe" KeyPath="yes" /></Component>
+      <Component Id="RunBAT" Guid="*"><File Source="..\..\release\run.bat" /></Component>
+      
+      <!-- Qt -->
+      <Component Id="Qt6Core" Guid="*"><File Source="..\..\release\Qt6Core.dll" /></Component>
+      <Component Id="Qt6Gui" Guid="*"><File Source="..\..\release\Qt6Gui.dll" /></Component>
+      <Component Id="Qt6Widgets" Guid="*"><File Source="..\..\release\Qt6Widgets.dll" /></Component>
+      <Component Id="Qt6Network" Guid="*"><File Source="..\..\release\Qt6Network.dll" /></Component>
+      
+      <!-- GCC Runtime -->
+      <Component Id="LibGCC" Guid="*"><File Source="..\..\release\libgcc_s_seh-1.dll" /></Component>
+      <Component Id="LibStdCpp" Guid="*"><File Source="..\..\release\libstdc++-6.dll" /></Component>
+      <Component Id="LibWinPthread" Guid="*"><File Source="..\..\release\libwinpthread-1.dll" /></Component>
+      
+      <!-- Compression -->
+      <Component Id="Zlib" Guid="*"><File Source="..\..\release\zlib1.dll" /></Component>
+      <Component Id="LibB2" Guid="*"><File Source="..\..\release\libb2-1.dll" /></Component>
+      <Component Id="LibBz2" Guid="*"><File Source="..\..\release\libbz2-1.dll" /></Component>
+      <Component Id="LibLzma" Guid="*"><File Source="..\..\release\liblzma-5.dll" /></Component>
+      <Component Id="LibZstd" Guid="*"><File Source="..\..\release\libzstd.dll" /></Component>
+      
+      <!-- Brotli -->
+      <Component Id="LibBrotliCommon" Guid="*"><File Source="..\..\release\libbrotlicommon.dll" /></Component>
+      <Component Id="LibBrotliDec" Guid="*"><File Source="..\..\release\libbrotlidec.dll" /></Component>
+      
+      <!-- Fonts -->
+      <Component Id="LibFreetype" Guid="*"><File Source="..\..\release\libfreetype-6.dll" /></Component>
+      <Component Id="LibHarfbuzz" Guid="*"><File Source="..\..\release\libharfbuzz-0.dll" /></Component>
+      <Component Id="LibGraphite2" Guid="*"><File Source="..\..\release\libgraphite2.dll" /></Component>
+      <Component Id="LibPng" Guid="*"><File Source="..\..\release\libpng16-16.dll" /></Component>
+      
+      <!-- GLib -->
+      <Component Id="LibGlib" Guid="*"><File Source="..\..\release\libglib-2.0-0.dll" /></Component>
+      <Component Id="LibIntl" Guid="*"><File Source="..\..\release\libintl-8.dll" /></Component>
+      <Component Id="LibIconv" Guid="*"><File Source="..\..\release\libiconv-2.dll" /></Component>
+      <Component Id="LibPcre2" Guid="*"><File Source="..\..\release\libpcre2-8-0.dll" /></Component>
+      
+      <!-- ICU -->
+      <Component Id="LibIcudt" Guid="*"><File Source="..\..\release\libicudt78.dll" /></Component>
+      <Component Id="LibIcuin" Guid="*"><File Source="..\..\release\libicuin78.dll" /></Component>
+      <Component Id="LibIcuio" Guid="*"><File Source="..\..\release\libicuio78.dll" /></Component>
+      <Component Id="LibIcutest" Guid="*"><File Source="..\..\release\libicutest78.dll" /></Component>
+      <Component Id="LibIcutu" Guid="*"><File Source="..\..\release\libicutu78.dll" /></Component>
+      <Component Id="LibIcuuc" Guid="*"><File Source="..\..\release\libicuuc78.dll" /></Component>
+    </ComponentGroup>
+    
+    <ComponentGroup Id="PlatformComponents" Directory="PLATFORMSDIR">
+      <Component Id="QWindows" Guid="*"><File Source="..\..\release\platforms\qwindows.dll" /></Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

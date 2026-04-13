@@ -1,0 +1,10 @@
+Package: messenger-app
+Version: 1.0.0
+Section: utils
+Priority: optional
+Architecture: amd64
+Depends: libqt6core6, libqt6gui6, libqt6widgets6, libsqlite3-0
+Maintainer: Temich <magnitcr@gmail.com>
+Description: Messenger application with SQLite database
+ Simple C++ Qt application for message management.
+ Features: add, search, delete, update messages.

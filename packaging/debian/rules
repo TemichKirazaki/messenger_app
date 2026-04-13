@@ -1,0 +1,10 @@
+#!/usr/bin/make -f
+
+build:
+    # Build instructions for Linux
+
+binary:
+    # Package creation
+
+clean:
+    rm -rf debian/messenger-app
