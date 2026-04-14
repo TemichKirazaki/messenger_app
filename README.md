@@ -16,7 +16,7 @@ Windows: `release/run.bat` или установить `packaging/windows/messen
 ## Тесты
 `tests/run_tests.bat` — 25 тестов, все проходят
 
-## Пакеты
-- MSI (Windows) ✅
-- DEB (Ubuntu) — заготовка
-- RPM (Fedora) — заготовка
+Пакеты
+- MSI (Windows) 
+- DEB (Ubuntu)
+- RPM (Fedora) 
