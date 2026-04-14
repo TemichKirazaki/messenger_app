@@ -53,8 +53,16 @@ bool Database::insertMessage(const Message& msg) {
     sqlite3_bind_int(stmt, 4, msg.user_id);
 
     return sqlite3_step(stmt) == SQLITE_DONE;
+} 
+bool Database::deleteMessagesByUser(int user_id) {
+    std::string sql = "DELETE FROM messages WHERE user_id=?";
+    sqlite3_stmt* stmt;
+    
+    sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, 0);
+    sqlite3_bind_int(stmt, 1, user_id);
+    
+    return sqlite3_step(stmt) == SQLITE_DONE;
 }
-
 std::vector<Message> Database::getMessages() {
     std::vector<Message> result;
 

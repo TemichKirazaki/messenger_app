@@ -29,7 +29,7 @@ public:
     ~Database();
 
     bool init();
-
+    bool deleteMessagesByUser(int user_id);
     bool insertUser(const User& user);
     bool insertMessage(const Message& msg);
 
