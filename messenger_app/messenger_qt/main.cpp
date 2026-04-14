@@ -1,25 +1,81 @@
-﻿#include <iostream>
+﻿#include <QApplication>
+#include <QWidget>
+#include <QVBoxLayout>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QListWidget>
+
 #include "database.h"
 
-int main() {
+int main(int argc, char *argv[]) {
+    QApplication app(argc, argv);
+
     Database db("messages.db");
+    db.init();
 
-    if (!db.init()) {
-        std::cout << "DB error\n";
-        return 1;
-    }
+    QWidget window;
+    window.setWindowTitle("Messenger");
 
-    User user{ 0, "Ivan Ivanov", "ivan", "+123" };
-    db.insertUser(user);
+    QVBoxLayout *layout = new QVBoxLayout();
 
-    Message msg{ 0, "in", "Hello world", "2026-04-11", 1 };
-    db.insertMessage(msg);
+    QLineEdit *input = new QLineEdit();
+    input->setPlaceholderText("Введите сообщение");
 
-    auto list = db.getMessages();
+    QLineEdit *searchInput = new QLineEdit();
+    searchInput->setPlaceholderText("Поиск...");
 
-    for (auto& m : list) {
-        std::cout << m.id << " " << m.text << std::endl;
-    }
+    QPushButton *addBtn = new QPushButton("Добавить");
+    QPushButton *showBtn = new QPushButton("Показать все");
+    QPushButton *searchBtn = new QPushButton("Поиск");
+    QPushButton *deleteBtn = new QPushButton("Удалить по ID");
 
-    return 0;
+    QListWidget *list = new QListWidget();
+
+    layout->addWidget(input);
+    layout->addWidget(addBtn);
+    layout->addWidget(showBtn);
+    layout->addWidget(searchInput);
+    layout->addWidget(searchBtn);
+    layout->addWidget(deleteBtn);
+    layout->addWidget(list);
+
+    window.setLayout(layout);
+
+    // ➕ Добавить
+    QObject::connect(addBtn, &QPushButton::clicked, [&]() {
+        Message msg{0, "in", input->text().toStdString(), "2026", 1};
+        db.insertMessage(msg);
+        input->clear();
+    });
+
+    // 📋 Показать
+    QObject::connect(showBtn, &QPushButton::clicked, [&]() {
+        list->clear();
+        auto messages = db.getMessages();
+        for (auto &m : messages) {
+            list->addItem(QString::number(m.id) + ": " + QString::fromStdString(m.text));
+        }
+    });
+
+    // 🔍 Поиск
+    QObject::connect(searchBtn, &QPushButton::clicked, [&]() {
+        list->clear();
+        auto messages = db.searchMessages(searchInput->text().toStdString());
+        for (auto &m : messages) {
+            list->addItem(QString::number(m.id) + ": " + QString::fromStdString(m.text));
+        }
+    });
+
+    // ❌ Удаление
+    QObject::connect(deleteBtn, &QPushButton::clicked, [&]() {
+        bool ok;
+        int id = searchInput->text().toInt(&ok);
+        if (ok) {
+            db.deleteMessage(id);
+        }
+    });
+
+    window.show();
+
+    return app.exec();
 }

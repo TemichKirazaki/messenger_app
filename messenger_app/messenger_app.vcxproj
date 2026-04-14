@@ -128,7 +128,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\sqlite3.c" />
     <ClCompile Include="database.cpp" />
-    <ClCompile Include="messenger_app.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="database.h" />
